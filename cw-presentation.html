@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlotte's Web — Presentation Preparation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --parchment:   #F4F0E6;
+  --beige:       #E8E0CF;
+  --sunfade:     #EEE6D6;
+  --ink:         #2B2520;
+  --ink-mid:     #574E45;
+  --ink-soft:    #8A7B6F;
+  --ochre:       #B8763A;
+  --ochre-dim:   rgba(184,118,58,0.12);
+  --sage:        #6A8C72;
+  --sage-dim:    rgba(106,140,114,0.12);
+  --divider:     #D5CABC;
+  --surface:     #EDE6D4;
+  --surface-alt: #E2D9C6;
+  --barn:        #7A2828;
+  --shadow:      rgba(43,37,32,0.10);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:17px; }
+
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:320px 320px;
+}
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  line-height: 1.65;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  max-width: 720px; margin: 0 auto; padding: 3.5rem 2rem 2rem;
+}
+.masthead-label {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ochre); margin-bottom: 0.8rem;
+}
+.masthead-rule {
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--ochre) 20%, var(--ochre) 80%, transparent);
+  margin-bottom: 2rem;
+}
+.masthead h1 {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: clamp(1.9rem, 5vw, 2.7rem); font-weight: 600;
+  color: var(--ink); line-height: 1.15; margin-bottom: 0.3rem;
+}
+.masthead-sub {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 1rem; color: var(--ink-soft);
+}
+.masthead-note {
+  font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.04em;
+  margin-top: 1.4rem; border-left: 2px solid var(--divider);
+  padding-left: 0.9rem; line-height: 1.65;
+}
+
+/* ── PHASE STRIP ── */
+.phase-strip {
+  background: var(--sunfade);
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  position: sticky; top: 0; z-index: 100;
+}
+.phase-inner {
+  max-width: 720px; margin: 0 auto; padding: 0 2rem;
+  display: flex; overflow-x: auto; scrollbar-width: none;
+}
+.phase-inner::-webkit-scrollbar { display: none; }
+.phase-btn {
+  background: none; border: none;
+  border-bottom: 2.5px solid transparent;
+  padding: 0.8rem 1rem 0.7rem;
+  font-family: 'Source Sans 3', sans-serif; font-size: 0.78rem;
+  color: var(--ink-soft); cursor: pointer; white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.08rem;
+}
+.phase-btn:hover { color: var(--ink); }
+.phase-btn.active { color: var(--ink); border-bottom-color: var(--ochre); }
+.phase-num { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); opacity: 0.8; }
+.phase-time { font-size: 0.65rem; color: var(--ink-soft); opacity: 0.7; margin-top: 0.1rem; }
+
+/* ── MAIN ── */
+main { max-width: 720px; margin: 0 auto; padding: 0 2rem 5rem; }
+.phase { display: none; padding-top: 3rem; animation: fadeUp 0.35s ease both; }
+.phase.active { display: block; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── TIMER ── */
+.timer-bar {
+  background: var(--surface-alt); border: 1px solid var(--divider);
+  border-radius: 5px; padding: 1rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem; flex-wrap: wrap; gap: 0.8rem;
+}
+.timer-label {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 1.05rem; color: var(--ink);
+}
+.timer-label span { color: var(--ochre); font-style: normal; font-weight: 600; }
+.timer-controls { display: flex; gap: 0.5rem; align-items: center; }
+.timer-display {
+  font-family: 'Source Sans 3', sans-serif; font-size: 1.5rem;
+  font-weight: 600; color: var(--ink); letter-spacing: 0.04em;
+  min-width: 3.5rem; text-align: right;
+}
+.timer-display.urgent { color: var(--barn); }
+.t-btn {
+  background: none; border: 1px solid var(--divider); border-radius: 4px;
+  padding: 0.35rem 0.8rem; font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.78rem; color: var(--ink-soft); cursor: pointer;
+  transition: all 0.15s;
+}
+.t-btn:hover { border-color: var(--ochre); color: var(--ink); }
+.t-btn.running { background: var(--ochre-dim); border-color: var(--ochre); color: var(--ink); }
+.timer-progress {
+  height: 3px; background: var(--divider); border-radius: 2px;
+  margin-top: 0.7rem; overflow: hidden; width: 100%;
+}
+.timer-fill {
+  height: 100%; background: var(--ochre); border-radius: 2px;
+  transition: width 1s linear, background 0.5s;
+  width: 100%;
+}
+.timer-fill.urgent { background: var(--barn); }
+
+/* ── PHASE TITLE ── */
+.phase-title {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 1.7rem; color: var(--ink); margin-bottom: 0.25rem;
+}
+.phase-subtitle {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 2rem;
+}
+
+/* ── SURFACES ── */
+.surface {
+  background: var(--surface); border: 1px solid var(--divider);
+  border-radius: 5px; padding: 1.8rem 2rem;
+  margin-bottom: 1.8rem; box-shadow: 0 4px 16px var(--shadow);
+}
+.surface.dense {
+  background: var(--surface-alt); border-left: 3px solid var(--ochre);
+  border-radius: 0 5px 5px 0;
+}
+.surface.light {
+  background: rgba(244,240,230,0.5); border-color: rgba(213,202,188,0.6);
+}
+.surface.open-bg {
+  background: transparent; border: none; box-shadow: none;
+  border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider);
+  border-radius: 0; padding: 2.5rem 0;
+}
+
+/* ── TYPOGRAPHY ── */
+.entry-prompt {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 1.12rem; color: var(--ink); line-height: 1.7; margin-bottom: 0.45rem;
+}
+.entry-note {
+  font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 1.1rem; line-height: 1.55;
+}
+.surface-rule { height: 1px; background: var(--divider); margin: 1.2rem 0; }
+
+/* ── TEXTAREA ── */
+.thinking-area {
+  width: 100%; min-height: 100px;
+  background: rgba(255,255,255,0.5); border: 1px solid var(--divider);
+  border-radius: 4px; padding: 0.8rem 1rem;
+  font-family: 'Crimson Text', serif; font-size: 1.02rem; color: var(--ink);
+  line-height: 1.8; resize: vertical; outline: none;
+  transition: border-color 0.18s, background 0.18s;
+  background-image: repeating-linear-gradient(transparent, transparent 42px, rgba(213,202,188,0.2) 42px, rgba(213,202,188,0.2) 43px);
+  background-attachment: local;
+}
+.thinking-area:focus { border-color: var(--ochre); background-color: rgba(255,255,255,0.65); }
+.thinking-area::placeholder { color: var(--ink-soft); font-style: italic; opacity: 0.6; }
+.word-count { font-size: 0.7rem; color: var(--ink-soft); text-align: right; margin-top: 0.3rem; }
+
+/* ── PLOT MOMENTS ── */
+.moment-list { list-style: none; margin-bottom: 0.5rem; }
+.moment-item {
+  border: 1px solid var(--divider); border-radius: 4px;
+  margin-bottom: 0.5rem; overflow: hidden;
+}
+.moment-head {
+  background: rgba(255,255,255,0.42); padding: 0.75rem 1.1rem;
+  cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; transition: background 0.15s; user-select: none;
+}
+.moment-head:hover { background: rgba(255,255,255,0.65); }
+.moment-head-text {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 0.97rem; color: var(--ink);
+}
+.moment-num {
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ochre); margin-right: 0.7rem; flex-shrink: 0;
+}
+.moment-arrow { font-size: 0.75rem; color: var(--ochre); transition: transform 0.2s; flex-shrink: 0; }
+.moment-body {
+  display: none; padding: 0.9rem 1.1rem 1rem;
+  background: rgba(255,255,255,0.22);
+  border-top: 1px solid var(--divider);
+  font-size: 0.88rem; color: var(--ink-mid); line-height: 1.7;
+}
+.moment-body.open { display: block; }
+.moment-quote {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 0.95rem; color: var(--ink);
+  border-left: 2px solid var(--ochre);
+  padding-left: 0.9rem; margin-top: 0.6rem;
+}
+
+/* ── ANGLE CARDS ── */
+.angle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.1rem; }
+.angle-card {
+  background: rgba(255,255,255,0.38); border: 1.5px solid var(--divider);
+  border-radius: 5px; padding: 0.95rem 1.1rem; cursor: pointer;
+  transition: all 0.16s;
+}
+.angle-card:hover { border-color: var(--sage); }
+.angle-card.chosen { border-color: var(--ochre); background: var(--ochre-dim); }
+.angle-card-label {
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ochre); margin-bottom: 0.3rem;
+}
+.angle-card p {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 0.9rem; color: var(--ink); line-height: 1.5;
+}
+
+/* ── STARTER CHIPS ── */
+.chip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+.chip {
+  background: rgba(255,255,255,0.44); border: 1px solid var(--divider);
+  border-radius: 4px; padding: 0.6rem 0.85rem; cursor: pointer;
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 0.88rem; color: var(--ink-mid); line-height: 1.45;
+  transition: all 0.15s; text-align: left;
+}
+.chip:hover { border-color: var(--ochre); color: var(--ink); background: var(--ochre-dim); }
+.chip.picked { border-color: var(--ochre); background: var(--ochre-dim); color: var(--ink); }
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ochre); margin-bottom: 0.45rem;
+}
+
+/* ── DRAFT BLOCKS ── */
+.draft-block { margin-bottom: 1.6rem; }
+.draft-block:last-child { margin-bottom: 0; }
+
+/* ── PAIR PRACTICE ── */
+.practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.4rem; }
+.practice-card {
+  background: rgba(255,255,255,0.38); border: 1px solid var(--divider);
+  border-radius: 5px; padding: 1.1rem 1.2rem;
+}
+.practice-card-label {
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--sage); margin-bottom: 0.6rem;
+}
+.practice-card ul { padding-left: 1.1rem; }
+.practice-card li {
+  font-size: 0.86rem; color: var(--ink-mid); line-height: 1.6; margin-bottom: 0.3rem;
+}
+
+/* ── REMINDER CARD ── */
+.reminder-card {
+  background: var(--surface-alt); border: 1.5px solid var(--divider);
+  border-radius: 5px; padding: 1.8rem 2rem; margin-top: 0.5rem;
+}
+.reminder-card-title {
+  font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ochre); margin-bottom: 1.4rem;
+}
+.reminder-row {
+  display: flex; gap: 1rem; align-items: flex-start;
+  margin-bottom: 1rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--divider);
+}
+.reminder-row:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.reminder-num {
+  font-family: 'Crimson Text', serif; font-size: 1.5rem;
+  color: var(--ochre); font-style: italic; line-height: 1; flex-shrink: 0; width: 1.6rem;
+}
+.reminder-label {
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 0.2rem;
+}
+.reminder-text {
+  font-family: 'Crimson Text', serif; font-style: italic;
+  font-size: 0.95rem; color: var(--ink); line-height: 1.55; white-space: pre-wrap;
+}
+.reminder-hint { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+/* ── CHECKLIST ── */
+.checklist {
+  background: var(--ochre-dim); border-radius: 4px;
+  padding: 1rem 1.2rem; margin-top: 1.4rem;
+}
+.checklist-label {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ochre); margin-bottom: 0.7rem;
+}
+.checklist-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1.5rem;
+}
+.checklist-item {
+  font-size: 0.82rem; color: var(--ink-mid); cursor: pointer;
+  user-select: none; transition: color 0.15s; padding: 0.15rem 0;
+}
+.checklist-item.checked { color: var(--sage); text-decoration: line-through; opacity: 0.7; }
+
+/* ── NAV BUTTONS ── */
+.phase-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2.5rem; padding-top: 1.4rem; border-top: 1px solid var(--divider);
+}
+.nav-btn {
+  background: none; border: 1px solid var(--divider); border-radius: 4px;
+  padding: 0.55rem 1.2rem; font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.82rem; color: var(--ink-soft); cursor: pointer; transition: all 0.15s;
+}
+.nav-btn:hover { border-color: var(--ochre); color: var(--ink); }
+.nav-btn.primary { background: var(--ochre); border-color: var(--ochre); color: white; }
+.nav-btn.primary:hover { background: #9e6230; }
+.nav-btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── PRINT ── */
+.print-btn {
+  background: none; border: 1px solid var(--divider); border-radius: 4px;
+  padding: 0.45rem 1rem; font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.76rem; color: var(--ink-soft); cursor: pointer;
+  transition: all 0.15s; margin-top: 1.2rem; display: inline-block;
+}
+.print-btn:hover { border-color: var(--ochre); color: var(--ink); }
+
+@media print {
+  .phase-strip, .masthead-note, .phase-nav, .timer-bar,
+  .print-btn, footer, .chip-grid, .angle-grid,
+  .moment-list, .thinking-area, .word-count,
+  .practice-grid, .entry-note { display: none !important; }
+  body { background: white; font-size: 13px; }
+  main { padding: 0; }
+  .phase { display: block !important; animation: none !important; }
+  .phase:not(#p5) { display: none !important; }
+  #p5 { display: block !important; padding-top: 0.5rem; }
+  .masthead { padding: 1rem 0 0.5rem; }
+  .reminder-card { border: 1.5px solid #ccc; break-inside: avoid; }
+  .checklist { background: #f5f5f5; }
+}
+
+@media (max-width: 560px) {
+  .masthead { padding: 2rem 1.2rem 1.5rem; }
+  main { padding: 0 1.2rem 4rem; }
+  .angle-grid, .chip-grid, .practice-grid, .checklist-grid { grid-template-columns: 1fr; }
+  .surface { padding: 1.3rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-label">Presentation Preparation</div>
+  <div class="masthead-rule"></div>
+  <h1>Charlotte's Web</h1>
+  <div class="masthead-sub">E.B. White &nbsp;·&nbsp; illustrated by Garth Williams</div>
+  <div class="masthead-note">
+    45 minutes &nbsp;·&nbsp; Five phases &nbsp;·&nbsp; Work through in order &nbsp;·&nbsp; Your class hasn't read this — your job is to make them want to
+  </div>
+</div>
+
+<!-- PHASE STRIP -->
+<div class="phase-strip">
+  <div class="phase-inner">
+    <button class="phase-btn active" onclick="goPhase(1)">
+      <span class="phase-num">phase one</span>The Story So Far
+      <span class="phase-time">5 min</span>
+    </button>
+    <button class="phase-btn" onclick="goPhase(2)">
+      <span class="phase-num">phase two</span>Your Angle
+      <span class="phase-time">10 min</span>
+    </button>
+    <button class="phase-btn" onclick="goPhase(3)">
+      <span class="phase-num">phase three</span>Draft It
+      <span class="phase-time">15 min</span>
+    </button>
+    <button class="phase-btn" onclick="goPhase(4)">
+      <span class="phase-num">phase four</span>Practise
+      <span class="phase-time">10 min</span>
+    </button>
+    <button class="phase-btn" onclick="goPhase(5)">
+      <span class="phase-num">phase five</span>Your Notes
+      <span class="phase-time">5 min</span>
+    </button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════
+     PHASE 1 — THE STORY SO FAR (5 min)
+══════════════════════════════════════ -->
+<div id="p1" class="phase active">
+  <div class="phase-title">The Story So Far</div>
+  <div class="phase-subtitle">Phase One &nbsp;·&nbsp; 5 minutes</div>
+
+  <div class="timer-bar" data-minutes="5">
+    <div>
+      <div class="timer-label">You have <span>5 minutes</span> for this phase.</div>
+      <div class="timer-progress"><div class="timer-fill" id="fill-1"></div></div>
+    </div>
+    <div class="timer-controls">
+      <div class="timer-display" id="clock-1">5:00</div>
+      <button class="t-btn" id="tbtn-1" onclick="toggleTimer(1)">Start</button>
+      <button class="t-btn" onclick="resetTimer(1)">Reset</button>
+    </div>
+  </div>
+
+  <div class="surface">
+    <div class="entry-prompt">Your class hasn't read this book. Before you can tell them anything interesting about it, they need to know what happened.</div>
+    <div class="entry-note">Use the six moments below to remind yourself of the shape of the story. Click each one to read a one-sentence summary. You don't need to tell your class all of them — but you need to know them yourself.</div>
+
+    <ul class="moment-list">
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">1 &nbsp;</span><span class="moment-head-text">Before Breakfast</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          Fern Arable, age eight, stops her father from killing the runt of a pig litter — not by crying, but by arguing that if size at birth justifies death, the same rule should apply to her. He hands over the pig. She names him Wilbur.
+          <div class="moment-quote">"If I had been very small at birth, would you have killed me?"</div>
+        </div>
+      </li>
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">2 &nbsp;</span><span class="moment-head-text">Wilbur finds a friend</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          Wilbur is sold to a nearby farm and is desperately lonely. A voice from the corner of the barn offers him friendship — a large grey spider named Charlotte A. Cavatica. He is horrified by what she eats. They become friends anyway.
+          <div class="moment-quote">"I've watched you all day and I like you."</div>
+        </div>
+      </li>
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">3 &nbsp;</span><span class="moment-head-text">The web</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          The old sheep tells Wilbur he will be slaughtered at Christmas. Charlotte promises to save him. Her plan: weave words in her web — SOME PIG, TERRIFIC, RADIANT, HUMBLE — and make the humans believe Wilbur is something extraordinary. It works completely.
+        </div>
+      </li>
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">4 &nbsp;</span><span class="moment-head-text">The county fair</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          Wilbur is entered in the county fair. Charlotte comes with him — exhausted, weakening. She weaves her final word and completes her egg sac (514 eggs) the same night. Wilbur wins a special prize. He is safe.
+        </div>
+      </li>
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">5 &nbsp;</span><span class="moment-head-text">Charlotte's death</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          Charlotte tells Wilbur she is dying and will not be going home. She dies alone at the fairground. Wilbur watches the Zuckermans load him to leave, knowing she is still there. He asks Templeton to carry the egg sac home.
+          <div class="moment-quote">"You have been my friend. That in itself is a tremendous thing."</div>
+        </div>
+      </li>
+      <li class="moment-item">
+        <div class="moment-head" onclick="toggleMoment(this)">
+          <div><span class="moment-num">6 &nbsp;</span><span class="moment-head-text">Spring</span></div>
+          <span class="moment-arrow">▾</span>
+        </div>
+        <div class="moment-body">
+          The egg sac opens in spring. Most of the baby spiders float away on the wind. Three stay — Joy, Aranea, and Nellie, Charlotte's daughters. Wilbur loves them, but he never forgets Charlotte. Nobody takes her place.
+          <div class="moment-quote">"It is not often that someone comes along who is a true friend and a good writer. Charlotte was both."</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="phase-nav">
+    <button class="nav-btn" disabled>← Back</button>
+    <button class="nav-btn primary" onclick="goPhase(2)">Next: Your Angle →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 2 — YOUR ANGLE (10 min)
+══════════════════════════════════════ -->
+<div id="p2" class="phase">
+  <div class="phase-title">Your Angle</div>
+  <div class="phase-subtitle">Phase Two &nbsp;·&nbsp; 10 minutes</div>
+
+  <div class="timer-bar" data-minutes="10">
+    <div>
+      <div class="timer-label">You have <span>10 minutes</span> for this phase.</div>
+      <div class="timer-progress"><div class="timer-fill" id="fill-2"></div></div>
+    </div>
+    <div class="timer-controls">
+      <div class="timer-display" id="clock-2">10:00</div>
+      <button class="t-btn" id="tbtn-2" onclick="toggleTimer(2)">Start</button>
+      <button class="t-btn" onclick="resetTimer(2)">Reset</button>
+    </div>
+  </div>
+
+  <div class="surface dense">
+    <div class="entry-prompt">A plot summary is the least interesting thing you can do.</div>
+    <div class="entry-note">Your class will understand the book better if you give them one clear idea to hold onto — not every event in order. Pick the angle that feels most true to what you got from the book. This will shape everything else.</div>
+    <div class="angle-grid">
+      <div class="angle-card" onclick="pickAngle(this,'friendship')">
+        <div class="angle-card-label">Friendship</div>
+        <p>A story about what it really costs to be a true friend — and whether that cost matters.</p>
+      </div>
+      <div class="angle-card" onclick="pickAngle(this,'language')">
+        <div class="angle-card-label">Language</div>
+        <p>A story about the power of words — and how they can change the way people see something that hasn't changed at all.</p>
+      </div>
+      <div class="angle-card" onclick="pickAngle(this,'death')">
+        <div class="angle-card-label">Death &amp; legacy</div>
+        <p>A story about what a life means — and what we leave behind when it ends.</p>
+      </div>
+      <div class="angle-card" onclick="pickAngle(this,'fairness')">
+        <div class="angle-card-label">Fairness</div>
+        <p>A story that asks whether all lives have equal value — and who gets to decide.</p>
+      </div>
+    </div>
+    <div class="entry-note" style="margin-bottom:0.5rem;">None of those feel right? Write your own in one sentence:</div>
+    <textarea class="thinking-area" id="t-angle-own" style="min-height:60px;" placeholder="This book is really about…" oninput="wc(this,'wc-angle');syncCard()"></textarea>
+    <div class="word-count" id="wc-angle"></div>
+  </div>
+
+  <div class="surface">
+    <div class="entry-prompt">What surprised you most about this book?</div>
+    <div class="entry-note">This doesn't have to connect to your angle. It's just useful to know, because it's probably the most interesting thing you can tell your class — something that genuinely caught you off guard. Write it here.</div>
+    <textarea class="thinking-area" id="t-surprise" style="min-height:90px;" placeholder="The thing that surprised me most was…" oninput="wc(this,'wc-surprise')"></textarea>
+    <div class="word-count" id="wc-surprise"></div>
+  </div>
+
+  <div class="phase-nav">
+    <button class="nav-btn" onclick="goPhase(1)">← Back</button>
+    <button class="nav-btn primary" onclick="goPhase(3)">Next: Draft It →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 3 — DRAFT IT (15 min)
+══════════════════════════════════════ -->
+<div id="p3" class="phase">
+  <div class="phase-title">Draft It</div>
+  <div class="phase-subtitle">Phase Three &nbsp;·&nbsp; 15 minutes</div>
+
+  <div class="timer-bar" data-minutes="15">
+    <div>
+      <div class="timer-label">You have <span>15 minutes</span> for this phase.</div>
+      <div class="timer-progress"><div class="timer-fill" id="fill-3"></div></div>
+    </div>
+    <div class="timer-controls">
+      <div class="timer-display" id="clock-3">15:00</div>
+      <button class="t-btn" id="tbtn-3" onclick="toggleTimer(3)">Start</button>
+      <button class="t-btn" onclick="resetTimer(3)">Reset</button>
+    </div>
+  </div>
+
+  <div class="entry-note" style="margin-bottom:1.6rem; font-size:0.85rem;">Your presentation has three parts. Draft each one below — notes only, not a script. Aim for something you can say out loud, not something you'll read.</div>
+
+  <!-- PART 1: HOOK -->
+  <div class="surface dense">
+    <div class="section-label">Part 1 — Your opening hook</div>
+    <div class="entry-prompt">Don't start with "So the book is called…"</div>
+    <div class="entry-note">Start with something that creates a question in their minds before you've explained anything. A surprising fact, a quote, a question they can't answer yet. Click one below to use it, or write your own.</div>
+    <div class="chip-grid" id="chips-open">
+      <div class="chip" onclick="pickChip(this,'t-open')">What would you do if you found out a friend was going to be killed — and only you could stop it?</div>
+      <div class="chip" onclick="pickChip(this,'t-open')">Imagine waking up and finding two words written in a spider's web. SOME PIG. What would you think?</div>
+      <div class="chip" onclick="pickChip(this,'t-open')">Can words change the world — without changing anything about the thing they describe?</div>
+      <div class="chip" onclick="pickChip(this,'t-open')">A pig is going to be killed for Christmas dinner. A spider decides to save him. That's the whole story.</div>
+    </div>
+    <div class="draft-block">
+      <textarea class="thinking-area" id="t-open" style="min-height:80px;" placeholder="Your opening — write your own or adapt one above." oninput="wc(this,'wc-open');syncCard()"></textarea>
+      <div class="word-count" id="wc-open"></div>
+    </div>
+  </div>
+
+  <!-- PART 2: THE STORY -->
+  <div class="surface dense">
+    <div class="section-label">Part 2 — The story in 90 seconds</div>
+    <div class="entry-prompt">Not every chapter. Just what your audience needs to follow your angle.</div>
+    <div class="entry-note">Four or five sentences at most. Think of it as a trailer, not a retelling. Use the phrase starters below to keep moving — click one to add it to your notes, then keep writing.</div>
+    <div class="chip-grid" id="chips-story">
+      <div class="chip" onclick="appendChip(this,'t-story')">The story begins when…</div>
+      <div class="chip" onclick="appendChip(this,'t-story')">The key moment is when…</div>
+      <div class="chip" onclick="appendChip(this,'t-story')">What I didn't expect was…</div>
+      <div class="chip" onclick="appendChip(this,'t-story')">By the end…</div>
+    </div>
+    <div class="draft-block">
+      <textarea class="thinking-area" id="t-story" style="min-height:120px;" placeholder="Your story summary — notes only. Don't try to tell everything." oninput="wc(this,'wc-story');syncCard()"></textarea>
+      <div class="word-count" id="wc-story"></div>
+    </div>
+  </div>
+
+  <!-- PART 3: CLOSE -->
+  <div class="surface dense">
+    <div class="section-label">Part 3 — Your closing thought</div>
+    <div class="entry-prompt">This is the only part your class will definitely remember.</div>
+    <div class="entry-note">End on something that lands — a question for them to think about, the moment that stayed with you, or a line from the book. Don't trail off. Click one below, or write your own.</div>
+    <div class="chip-grid" id="chips-close">
+      <div class="chip" onclick="pickChip(this,'t-close')">"You have been my friend. That in itself is a tremendous thing." — I keep thinking about what that means.</div>
+      <div class="chip" onclick="pickChip(this,'t-close')">Charlotte dies alone at the fairground. The story doesn't look away. That's what stayed with me.</div>
+      <div class="chip" onclick="pickChip(this,'t-close')">"It is not often that someone comes along who is a true friend and a good writer. Charlotte was both."</div>
+      <div class="chip" onclick="pickChip(this,'t-close')">What would you be willing to give up for someone who needed you? The book made me ask that.</div>
+    </div>
+    <div class="draft-block">
+      <textarea class="thinking-area" id="t-close" style="min-height:80px;" placeholder="Your closing line — the last thing you want them to hear." oninput="wc(this,'wc-close');syncCard()"></textarea>
+      <div class="word-count" id="wc-close"></div>
+    </div>
+  </div>
+
+  <div class="phase-nav">
+    <button class="nav-btn" onclick="goPhase(2)">← Back</button>
+    <button class="nav-btn primary" onclick="goPhase(4)">Next: Practise →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 4 — PRACTISE (10 min)
+══════════════════════════════════════ -->
+<div id="p4" class="phase">
+  <div class="phase-title">Practise</div>
+  <div class="phase-subtitle">Phase Four &nbsp;·&nbsp; 10 minutes</div>
+
+  <div class="timer-bar" data-minutes="10">
+    <div>
+      <div class="timer-label">You have <span>10 minutes</span> for this phase.</div>
+      <div class="timer-progress"><div class="timer-fill" id="fill-4"></div></div>
+    </div>
+    <div class="timer-controls">
+      <div class="timer-display" id="clock-4">10:00</div>
+      <button class="t-btn" id="tbtn-4" onclick="toggleTimer(4)">Start</button>
+      <button class="t-btn" onclick="resetTimer(4)">Reset</button>
+    </div>
+  </div>
+
+  <div class="surface light">
+    <div class="entry-prompt">Work with a partner. Each person presents once, then swaps. Four minutes each — that gives you one minute spare.</div>
+    <div class="entry-note">The speaker uses their notes from Phase 3. The listener uses the questions below. Be specific — "it was good" tells your partner nothing.</div>
+  </div>
+
+  <div class="practice-grid">
+    <div class="practice-card">
+      <div class="practice-card-label">If you are speaking</div>
+      <ul>
+        <li>Use your notes — don't read them out</li>
+        <li>Look up at your partner, not down at the screen</li>
+        <li>Say your closing line and then stop — don't add "so yeah, that's it"</li>
+        <li>Aim for three to four minutes</li>
+      </ul>
+    </div>
+    <div class="practice-card">
+      <div class="practice-card-label">If you are listening</div>
+      <ul>
+        <li>What was the clearest moment — when did you understand most?</li>
+        <li>Was there anything confusing (remember: you haven't read the book)?</li>
+        <li>Did the opening make you want to listen? If not, why not?</li>
+        <li>Did the ending land? Or did it trail off?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="surface">
+    <div class="section-label">After your practice run</div>
+    <div class="entry-prompt" style="font-size:1rem;">What do you want to change?</div>
+    <div class="entry-note">One or two things only — don't try to rewrite everything. What did your partner say that you're going to act on?</div>
+    <textarea class="thinking-area" id="t-feedback" style="min-height:80px;" placeholder="The one thing I'm going to fix is…" oninput="wc(this,'wc-feedback')"></textarea>
+    <div class="word-count" id="wc-feedback"></div>
+  </div>
+
+  <div class="phase-nav">
+    <button class="nav-btn" onclick="goPhase(3)">← Back</button>
+    <button class="nav-btn primary" onclick="goPhase(5)">Next: Your Notes →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 5 — YOUR NOTES (5 min)
+══════════════════════════════════════ -->
+<div id="p5" class="phase">
+  <div class="phase-title">Your Notes</div>
+  <div class="phase-subtitle">Phase Five &nbsp;·&nbsp; 5 minutes</div>
+
+  <div class="timer-bar" data-minutes="5">
+    <div>
+      <div class="timer-label">You have <span>5 minutes</span> for this phase.</div>
+      <div class="timer-progress"><div class="timer-fill" id="fill-5"></div></div>
+    </div>
+    <div class="timer-controls">
+      <div class="timer-display" id="clock-5">5:00</div>
+      <button class="t-btn" id="tbtn-5" onclick="toggleTimer(5)">Start</button>
+      <button class="t-btn" onclick="resetTimer(5)">Reset</button>
+    </div>
+  </div>
+
+  <div class="entry-note" style="margin-bottom:1.4rem;">Everything you've drafted is pulled together below. Read it through, make any final edits in the boxes above (go back to Phase 3 if needed), then use this as your speaking card. You can also print it.</div>
+
+  <div class="reminder-card" id="reminder-card">
+    <div class="reminder-card-title">Charlotte's Web &nbsp;·&nbsp; Speaking notes</div>
+
+    <div class="reminder-row">
+      <div class="reminder-num">1</div>
+      <div class="reminder-body">
+        <div class="reminder-label">Open with</div>
+        <div class="reminder-text" id="rc-open"><em style="opacity:0.4;">Go back to Phase 3 and write your opening.</em></div>
+      </div>
+    </div>
+
+    <div class="reminder-row">
+      <div class="reminder-num">2</div>
+      <div class="reminder-body">
+        <div class="reminder-label">Your angle — say this before the summary</div>
+        <div class="reminder-text" id="rc-angle"><em style="opacity:0.4;">Go back to Phase 2 and pick your angle.</em></div>
+        <div class="reminder-hint">This tells your audience what to listen for.</div>
+      </div>
+    </div>
+
+    <div class="reminder-row">
+      <div class="reminder-num">3</div>
+      <div class="reminder-body">
+        <div class="reminder-label">The story — 90 seconds</div>
+        <div class="reminder-text" id="rc-story"><em style="opacity:0.4;">Go back to Phase 3 and write your story summary.</em></div>
+        <div class="reminder-hint">Notes only. Don't read this out — talk through it.</div>
+      </div>
+    </div>
+
+    <div class="reminder-row">
+      <div class="reminder-num">4</div>
+      <div class="reminder-body">
+        <div class="reminder-label">Close with</div>
+        <div class="reminder-text" id="rc-close"><em style="opacity:0.4;">Go back to Phase 3 and write your closing.</em></div>
+        <div class="reminder-hint">Say it and stop. Don't add anything after.</div>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-label">Before you present — tick these off</div>
+      <div class="checklist-grid">
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;Don't read from a script</div>
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;Speak to the room, not your notes</div>
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;Your class hasn't read it — keep it clear</div>
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;Three to four minutes is enough</div>
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;End on your closing line — then stop</div>
+        <div class="checklist-item" onclick="this.classList.toggle('checked')">☐ &nbsp;I know what my angle is</div>
+      </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Print this card</button>
+  </div>
+
+  <div class="phase-nav">
+    <button class="nav-btn" onclick="goPhase(4)">← Back</button>
+    <button class="nav-btn" disabled>You're ready ✓</button>
+  </div>
+</div>
+
+</main>
+
+<footer style="max-width:720px;margin:0 auto;padding:1.2rem 2rem;border-top:1px solid var(--divider);font-family:'Source Sans 3',sans-serif;font-size:0.7rem;color:var(--ink-soft);letter-spacing:0.05em;display:flex;justify-content:space-between;">
+  <span>Charlotte's Web · E.B. White · 1952</span>
+  <span>Presentation preparation</span>
+</footer>
+
+<script>
+/* ── STATE ── */
+const D = {
+  angle: '',
+  angleText: '',
+  open: '',
+  story: '',
+  close: ''
+};
+
+/* ── PHASE NAV ── */
+const PHASES = [1,2,3,4,5];
+function goPhase(n){
+  PHASES.forEach(i=>{
+    document.getElementById('p'+i)?.classList.remove('active');
+    document.querySelectorAll('.phase-btn')[i-1]?.classList.remove('active');
+  });
+  document.getElementById('p'+n)?.classList.add('active');
+  document.querySelectorAll('.phase-btn')[n-1]?.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  syncCard();
+}
+
+/* ── TIMERS ── */
+const timers = {};
+function toggleTimer(id){
+  if(!timers[id]){
+    const mins = Number(document.querySelector(`#p${id} .timer-bar`)?.dataset.minutes || 5);
+    timers[id] = { total: mins*60, remaining: mins*60, running: false, interval: null };
+  }
+  const t = timers[id];
+  if(t.running){
+    clearInterval(t.interval); t.running = false;
+    document.getElementById('tbtn-'+id).textContent = 'Resume';
+    document.getElementById('tbtn-'+id).classList.remove('running');
+  } else {
+    t.running = true;
+    document.getElementById('tbtn-'+id).textContent = 'Pause';
+    document.getElementById('tbtn-'+id).classList.add('running');
+    t.interval = setInterval(()=>{
+      t.remaining--;
+      renderTimer(id);
+      if(t.remaining <= 0){
+        clearInterval(t.interval); t.running = false;
+        document.getElementById('tbtn-'+id).textContent = 'Done';
+        document.getElementById('tbtn-'+id).classList.remove('running');
+      }
+    }, 1000);
+  }
+}
+function resetTimer(id){
+  if(timers[id]){
+    clearInterval(timers[id].interval);
+    const mins = Number(document.querySelector(`#p${id} .timer-bar`)?.dataset.minutes || 5);
+    timers[id] = { total: mins*60, remaining: mins*60, running: false, interval: null };
+  }
+  const mins = Number(document.querySelector(`#p${id} .timer-bar`)?.dataset.minutes || 5);
+  const clock = document.getElementById('clock-'+id);
+  const fill  = document.getElementById('fill-'+id);
+  const btn   = document.getElementById('tbtn-'+id);
+  if(clock) clock.textContent = mins+':00';
+  if(clock) clock.classList.remove('urgent');
+  if(fill)  { fill.style.width='100%'; fill.classList.remove('urgent'); }
+  if(btn)   { btn.textContent='Start'; btn.classList.remove('running'); }
+}
+function renderTimer(id){
+  const t = timers[id];
+  if(!t) return;
+  const m = Math.floor(t.remaining/60);
+  const s = t.remaining % 60;
+  const clock = document.getElementById('clock-'+id);
+  const fill  = document.getElementById('fill-'+id);
+  if(clock) {
+    clock.textContent = m+':'+(s<10?'0':'')+s;
+    clock.classList.toggle('urgent', t.remaining <= 60);
+  }
+  if(fill) {
+    fill.style.width = (t.remaining/t.total*100)+'%';
+    fill.classList.toggle('urgent', t.remaining <= 60);
+  }
+}
+
+/* ── MOMENT ACCORDION ── */
+function toggleMoment(head){
+  const body  = head.nextElementSibling;
+  const arrow = head.querySelector('.moment-arrow');
+  const open  = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  arrow.style.transform = open ? '' : 'rotate(180deg)';
+}
+
+/* ── ANGLE PICKER ── */
+function pickAngle(card, key){
+  document.querySelectorAll('.angle-card').forEach(c=>c.classList.remove('chosen'));
+  card.classList.add('chosen');
+  D.angle = key;
+  D.angleText = card.querySelector('p').textContent.trim();
+  document.getElementById('t-angle-own').value = '';
+  syncCard();
+}
+
+/* ── CHIP PICKERS ── */
+// Replace textarea content
+function pickChip(chip, taId){
+  chip.closest('.chip-grid')?.querySelectorAll('.chip').forEach(c=>c.classList.remove('picked'));
+  chip.classList.add('picked');
+  const ta = document.getElementById(taId);
+  if(ta){ ta.value = chip.textContent.trim(); syncCard(); ta.focus(); }
+}
+// Append phrase to textarea (story starters)
+function appendChip(chip, taId){
+  chip.closest('.chip-grid')?.querySelectorAll('.chip').forEach(c=>c.classList.remove('picked'));
+  chip.classList.add('picked');
+  const ta = document.getElementById(taId);
+  if(!ta) return;
+  const current = ta.value.trim();
+  const phrase  = chip.textContent.trim();
+  ta.value = current ? current + '\n' + phrase : phrase;
+  syncCard();
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+/* ── WORD COUNT ── */
+function wc(el, id){
+  const text = el.value.trim();
+  const n    = text ? text.split(/\s+/).length : 0;
+  const out  = document.getElementById(id);
+  if(out) out.textContent = n ? `${n} word${n!==1?'s':''}` : '';
+}
+
+/* ── SYNC REMINDER CARD ── */
+function syncCard(){
+  const ownAngle = document.getElementById('t-angle-own')?.value.trim();
+  const angleStr = ownAngle || D.angleText;
+  const openStr  = document.getElementById('t-open')?.value.trim();
+  const storyStr = document.getElementById('t-story')?.value.trim();
+  const closeStr = document.getElementById('t-close')?.value.trim();
+
+  set('rc-angle', angleStr, 'Go back to Phase 2 and pick your angle.');
+  set('rc-open',  openStr,  'Go back to Phase 3 and write your opening.');
+  set('rc-story', storyStr, 'Go back to Phase 3 and write your story summary.');
+  set('rc-close', closeStr, 'Go back to Phase 3 and write your closing.');
+}
+function set(id, val, placeholder){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = val
+    ? val.replace(/\n/g,'<br>')
+    : `<em style="opacity:0.4;">${placeholder}</em>`;
+}
+</script>
+</body>
+</html>
